@@ -17,6 +17,9 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <mybatisplus.version>3.0.5</mybatisplus.version>
+        <fasterxml.uuid.version>3.1.5</fasterxml.uuid.version>
+        <fastjson.version>1.2.54</fastjson.version>
     </properties>
 
     <modules>
@@ -32,6 +35,27 @@
                 <artifactId>common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+
+            <!-- uuid -->
+            <dependency>
+                <groupId>com.fasterxml.uuid</groupId>
+                <artifactId>java-uuid-generator</artifactId>
+                <version>${fasterxml.uuid.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

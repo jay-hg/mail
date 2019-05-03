@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.hgc")
 @EnableWebMvc
 public class MailProducerApplication {
 

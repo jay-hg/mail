@@ -2,8 +2,7 @@ package com.hgc.mailproducer.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -19,10 +18,8 @@ import java.sql.SQLException;
 
 @Configuration
 @EnableTransactionManagement
-//@Slf4j
+@Slf4j
 public class DataSourceConfiguration {
-
-    private static Logger LOGGER = LoggerFactory.getLogger(DataSourceConfiguration.class);
 
     @Value("${druid.type}")
     private Class<? extends DataSource> dataSourceType;
@@ -32,7 +29,7 @@ public class DataSourceConfiguration {
     @ConfigurationProperties(prefix = "druid.master")
     public DataSource masterDataSource() throws SQLException {
         DataSource masterDataSource = DataSourceBuilder.create().type(dataSourceType).build();
-        LOGGER.info("========MASTER: {}=========", masterDataSource);
+        log.info("========MASTER: {}=========", masterDataSource);
         return masterDataSource;
     }
 
@@ -40,7 +37,7 @@ public class DataSourceConfiguration {
     @ConfigurationProperties(prefix = "druid.slave")
     public DataSource slaveDataSource(){
         DataSource slaveDataSource = DataSourceBuilder.create().type(dataSourceType).build();
-        LOGGER.info("========SLAVE: {}=========", slaveDataSource);
+        log.info("========SLAVE: {}=========", slaveDataSource);
         return slaveDataSource;
     }
 
@@ -52,7 +49,7 @@ public class DataSourceConfiguration {
         reg.addUrlMappings("/druid/*");
         reg.addInitParameter("allow", "localhost");
         reg.addInitParameter("deny","/deny");
-        LOGGER.info(" druid console manager init : {} ", reg);
+        log.info(" druid console manager init : {} ", reg);
         return reg;
     }
 
@@ -62,7 +59,7 @@ public class DataSourceConfiguration {
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico, /druid/*");
-        LOGGER.info(" druid filter register : {} ", filterRegistrationBean);
+        log.info(" druid filter register : {} ", filterRegistrationBean);
         return filterRegistrationBean;
     }
 }

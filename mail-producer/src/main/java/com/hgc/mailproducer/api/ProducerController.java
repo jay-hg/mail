@@ -19,7 +19,7 @@ public class ProducerController {
     //send
 //    @Transactional
     @RequestMapping(value = "/send",produces = "application/json;charset=UTF-8")
-    public void send(@RequestBody MailSendDTO mailSendDTO) throws Exception {
+    public void send(@Validated @RequestBody MailSendDTO mailSendDTO) throws Exception {
         log.debug("接收到的参数，mailSendDTO:{}",mailSendDTO);
         // try catch ------------>
         // 1 尽量缩小代码的范围，捕获细粒度的异常 既然catch 那么一定要处理

@@ -15,6 +15,5 @@ public class MailSendDTO {
     @NotEmpty
     private String sendContent;
 
-    @NotEmpty
     private Long sendPriority;
 }

@@ -1,5 +1,6 @@
 package com.hgc.common.exception;
 
+import com.hgc.common.system.RestResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public String systemExceptionHandle(Exception exception) {
+    public RestResult systemExceptionHandle(Exception exception) {
         log.error("系统异常：",exception);
-        return "system exception!";
+        return new RestResult(false,"0","system exception!");
     }
 }

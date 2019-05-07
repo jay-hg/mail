@@ -43,6 +43,12 @@
                 <version>${mybatisplus.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+
             <!-- uuid -->
             <dependency>
                 <groupId>com.fasterxml.uuid</groupId>
@@ -75,6 +81,11 @@
                 <version>1.18.6</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -4,7 +4,7 @@ server:
 druid:
   type: com.alibaba.druid.pool.DruidDataSource
   master:
-    url: jdbc:mysql://localhost:3307/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    url: jdbc:mysql://192.168.96.100:3306/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
@@ -24,7 +24,7 @@ druid:
     filters: stat,wall,slf4j
     useGlobalDataSourceStat: true
   slave:
-    url: jdbc:mysql://localhost:3308/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    url: jdbc:mysql://192.168.96.101:3306/mail?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL&useUnicode=true
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456

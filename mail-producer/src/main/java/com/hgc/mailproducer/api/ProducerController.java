@@ -1,8 +1,16 @@
 package com.hgc.mailproducer.api;
 
+import com.hgc.common.constant.Const;
 import com.hgc.common.dto.MailSendDTO;
+import com.hgc.common.entity.MailSend;
+import com.hgc.common.enumeration.MailStatus;
+import com.hgc.common.service.IMailSendService;
 import com.hgc.common.system.RestResult;
+import com.hgc.common.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +23,15 @@ import javax.validation.Valid;
 @Slf4j
 public class ProducerController {
 
+    @Autowired
+    IMailSendService mailSendService;
+
     //send
-//    @Transactional
+    @Transactional
     @RequestMapping(value = "/send", produces = "application/json;charset=UTF-8")
     public RestResult send(@Valid @RequestBody MailSendDTO mailSendDTO, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
-            return new RestResult(false, "2", "参数校验失败");
+            return new RestResult(false, "2", bindingResult.getFieldError().getDefaultMessage());
         }
         log.debug("接收到的参数，mailSendDTO:{}", mailSendDTO);
         // try catch ------------>
@@ -29,16 +40,18 @@ public class ProducerController {
         try {
             //1.MailSend validate ---> validate数据校验
 
+            MailSend mailSend = new MailSend();
+            BeanUtils.copyProperties(mailSendDTO,mailSend);
             //2.insert
-            /*mailSend.setSendId(KeyUtil.generateUUID());
+            mailSend.setSendId(KeyUtil.generateUUID());
             mailSend.setSendStatus(MailStatus.DRAFT.getCode());
             mailSend.setSendCount(0L);
             mailSend.setVersion(0L);
-            mailSend.setUpdateBy(Const.SYS_RUNTIME);*/
-//            mailSendService.insert(mailSend);
+            mailSend.setUpdateBy(Const.SYS_RUNTIME);
+            mailSendService.insert(mailSend);
 
-            //3.数据写到redis上
-//            mailSendService.sendMq(mailSend);
+            //3.数据投递到mq
+            mailSendService.sendMq(mailSend);
         } catch (Exception e) {
             //记录日志
             log.error("异常信息：{}", e);

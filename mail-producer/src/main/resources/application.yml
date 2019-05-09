@@ -43,3 +43,11 @@ druid:
     maxPoolPreparedStatementPerConnectionSize: 20
     filters: stat,wall,slf4j
     useGlobalDataSourceStat: true
+
+apache:
+  rocketmq:
+    #生产者的配置
+    producer:
+      producerGroup: mailGroup
+    #Nameserver的地址
+    namesrvAddr: 192.168.96.121:9876

@@ -7,6 +7,7 @@ import com.hgc.common.enumeration.MailStatus;
 import com.hgc.common.service.IMailSendService;
 import com.hgc.common.system.RestResult;
 import com.hgc.common.util.KeyUtil;
+import com.hgc.mailproducer.service.ProduceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ProducerController {
 
     @Autowired
     IMailSendService mailSendService;
+
+    @Autowired
+    ProduceService produceService;
 
     //send
     @Transactional
@@ -51,7 +55,7 @@ public class ProducerController {
             mailSendService.insert(mailSend);
 
             //3.数据投递到mq
-            mailSendService.sendMq(mailSend);
+            produceService.sendMq(mailSend);
         } catch (Exception e) {
             //记录日志
             log.error("异常信息：{}", e);
